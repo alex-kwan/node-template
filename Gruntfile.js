@@ -45,7 +45,7 @@ module.exports = function(grunt){
 		},
 		open : {
 			dev : {
-				path: "http://localhost:3000",
+				path: "http://localhost:3000/dev",
 			}
 		}
 	});

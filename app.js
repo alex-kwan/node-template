@@ -7,4 +7,8 @@ app.get('/', function(req, res){
 	res.sendfile('./views/index.html');
 });
 
+app.get('/dev', function(req, res){
+	res.sendfile('./views/dev.html');
+});
+
 app.listen(3000);
