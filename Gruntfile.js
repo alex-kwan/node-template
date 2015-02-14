@@ -1,5 +1,10 @@
 module.exports = function(grunt){
 	grunt.initConfig({
+		shell: {
+        	openProject: {
+            	command: 'subl .'
+        	}
+    	},
 		nodemon: {
             dev: {
                 script: "app.js",
@@ -68,10 +73,11 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-open');
 	grunt.loadNpmTasks('grunt-nodemon');
+	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-concurrent');
 	//production
 	grunt.registerTask('prod', ['clean:dist','jshint','concat','uglify']);
 	//dev
-	grunt.registerTask('default', ['concurrent:target']);
+	grunt.registerTask('default', ['shell:openProject','concurrent:target']);
 	grunt.registerTask('dev', ['open:dev', 'watch']);
 };
