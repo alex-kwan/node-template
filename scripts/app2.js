@@ -1,4 +1,5 @@
 /*Consolidated scripts go in here*/
-function foo(){
-	alert('hello world2');
+function foo2(){
+	alert('hello world3');
+	
 }

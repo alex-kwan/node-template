@@ -1,10 +1,13 @@
 module.exports = function(grunt){
 	grunt.initConfig({
-		shell : {
-			launchExpress : {
-				command: 'node app.js'
-			}
-		},
+		nodemon: {
+            dev: {
+                script: "app.js",
+                options: {
+                    ignore: ["node_modules/**", ".git/", ".sass-cache/", "public/", "Gruntfile.js"]                    
+                }
+            }
+        },
 		watch : {
 			css : {
 				options : {livereload:true},
@@ -21,6 +24,14 @@ module.exports = function(grunt){
 				tasks: ['jshint:all','concat:js']
 			}
 		},
+		concurrent: {
+        	target: {
+            	tasks: ['nodemon:dev', 'dev'],
+            	options: {
+                	logConcurrentOutput: true
+            	}
+        	}
+    	},
 		concat : {
 			js : {
 				src : ["scripts/**.js"],
@@ -55,11 +66,12 @@ module.exports = function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-open');
+	grunt.loadNpmTasks('grunt-nodemon');
+	grunt.loadNpmTasks('grunt-concurrent');
 	//production
 	grunt.registerTask('prod', ['clean:dist','jshint','concat','uglify']);
 	//dev
-	grunt.registerTask('default', ['shell:launchExpress']);
+	grunt.registerTask('default', ['concurrent:target']);
 	grunt.registerTask('dev', ['open:dev', 'watch']);
 };
