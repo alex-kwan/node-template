@@ -48,10 +48,14 @@ module.exports = function(grunt){
 			}
 		},
 		uglify : {
-			js : {
-				src : ['dist/app.js'],
-				dest : 'dist/app.js'
-			}
+			options: {
+    			banner: '/*! <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+    			mangle: true
+  			},
+			build : {
+				files : {'dist/app.js' : ['dist/app.js']}
+			},
+
 		},
 		jshint  : {
 			all : ['Gruntfile.js', 'scripts/**/*.js']
@@ -78,6 +82,6 @@ module.exports = function(grunt){
 	//production
 	grunt.registerTask('prod', ['clean:dist','jshint','concat','uglify']);
 	//dev
-	grunt.registerTask('default', ['shell:openProject','concurrent:target']);
+	grunt.registerTask('edit', ['shell:openProject','concurrent:target']);
 	grunt.registerTask('dev', ['open:dev', 'watch']);
 };
